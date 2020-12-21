@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import BlogList from './components/BlogList'
 import LoginForm from './components/LoginForm'
 import AddForm from './components/AddForm'
@@ -16,6 +16,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
+  const addFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -113,8 +114,12 @@ const App = () => {
               <h4> Signed in as: {user.name}</h4>
               <button onClick={handleLogout}>Log out</button>
             </div>
-            <Togglable buttonLabel="Add new entry">
-              <AddForm onSuccess={onSuccess} onError={onError} />
+            <Togglable buttonLabel="Add new entry" ref={addFormRef}>
+              <AddForm
+                onSuccess={onSuccess}
+                onError={onError}
+                visibilityRef={addFormRef}
+              />
             </Togglable>
             <BlogList blogs={blogs} />
           </>

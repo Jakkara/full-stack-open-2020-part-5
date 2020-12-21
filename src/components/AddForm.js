@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const AddForm = ({ onSuccess, onError }) => {
+const AddForm = ({ onSuccess, onError, visibilityRef }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -16,6 +16,7 @@ const AddForm = ({ onSuccess, onError }) => {
       setTitle('')
       setAuthor('')
       setUrl('')
+      visibilityRef.current.toggleVisibility()
     } catch (e) {
       onError('Error adding blog entry', 2000)
     }
