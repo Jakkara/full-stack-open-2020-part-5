@@ -15,7 +15,7 @@ const create = async newObject => {
   }
   const response = await axios.post(
     baseUrl, newObject, config
-  ).catch(error => {
+  ).catch(() => {
     throw 'There was an error creating the blog'
   })
   return response.data
