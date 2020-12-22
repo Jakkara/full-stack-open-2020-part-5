@@ -32,8 +32,10 @@ test('Blog rendering without details', () => {
 
 test('Blog rendering WITH details', () => {
 
+  const likeHandler = jest.fn()
+
   const component = render(
-    <Blog blog={blog} />
+    <Blog blog={blog} likeHandler={likeHandler} />
   )
   fireEvent.click(component.getByText('Show'))
 
@@ -43,4 +45,10 @@ test('Blog rendering WITH details', () => {
   expect(component.container).toHaveTextContent(
     `Likes: ${blog.likes}`
   )
+
+  const button = component.container.querySelector('.blog-like')
+  fireEvent.click(button)
+  fireEvent.click(button)
+
+  expect(likeHandler.mock.calls).toHaveLength(2)
 })

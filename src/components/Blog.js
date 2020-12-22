@@ -5,7 +5,7 @@ const style = {
   padding: '3px 5px'
 }
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, likeHandler }) => {
   const [detailsVisible, setDetailsVisible] = React.useState(false)
 
   return (<div style={style} className='blog-entry'>
@@ -22,7 +22,7 @@ const Blog = ({ blog }) => {
         </p>
         <p>
           Likes: {blog.likes}
-          <button>Like</button>
+          <button className="blog-like" onClick={likeHandler}>Like</button>
         </p>
         {blog.user && blog.user.name && (
           <p>
