@@ -45,6 +45,9 @@ const App = () => {
 
   const onSuccess = message => {
     showTimedMessage(message, 2000)
+    blogService.getAll().then(blogs =>
+      setBlogs(blogs)
+    )
   }
 
   const onError = message => {

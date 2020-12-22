@@ -26,12 +26,12 @@ const AddForm = ({ onSuccess, onError, visibilityRef }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
-        <input name="title" value={title} onChange={({ target }) => setTitle(target.value)} /><br />
+        <input id="title" name="title" value={title} onChange={({ target }) => setTitle(target.value)} /><br />
         <label htmlFor="author">Author</label>
-        <input name="author" value={author} onChange={({ target }) => setAuthor(target.value)} /><br />
+        <input id="author" name="author" value={author} onChange={({ target }) => setAuthor(target.value)} /><br />
         <label htmlFor="url">URL</label>
-        <input name="url" value={url} onChange={({ target }) => setUrl(target.value)} /><br />
-        <button type="submit">Create</button>
+        <input id="url" name="url" value={url} onChange={({ target }) => setUrl(target.value)} /><br />
+        <button id="add-entry-btn" type="submit">Create</button>
       </form>
     </div>
   )
