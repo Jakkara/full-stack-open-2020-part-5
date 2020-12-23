@@ -5,7 +5,7 @@ const style = {
   padding: '3px 5px'
 }
 
-const Blog = ({ blog, likeHandler }) => {
+const Blog = ({ blog, likeHandler, deleteHandler }) => {
   const [detailsVisible, setDetailsVisible] = React.useState(false)
 
   return (<div style={style} className='blog-entry'>
@@ -28,6 +28,9 @@ const Blog = ({ blog, likeHandler }) => {
           <p>
             {blog.user.name}
           </p>
+        )}
+        {blog.user.username === JSON.parse(localStorage.getItem('user')).username && (
+          <button onClick={deleteHandler}>Remove?</button>
         )}
       </div>
     )}
