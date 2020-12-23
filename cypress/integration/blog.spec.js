@@ -30,7 +30,7 @@ describe('Blog app', function () {
     })
   })
 
-  describe.only('When logged in', function() {
+  describe.only('When logged in', function () {
     beforeEach(function () {
       cy.login({ username: user.username, password: user.password })
     })
@@ -64,6 +64,42 @@ describe('Blog app', function () {
       cy.contains('Show').click()
       cy.contains('Remove?').click()
       cy.contains('The author of the remove test').should('not.exist')
+    })
+    it('Blogs are sorted by likes descending', function () {
+      // Create three blogs with differing like counts
+      ['First', 'Second', 'Third'].forEach((key, index) => {
+        cy.request({
+          method: 'POST',
+          url: 'http://localhost:3001/api/blogs/',
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+          },
+          body: {
+            title: key,
+            author: key,
+            url: 'https://utu.fi',
+            likes: index
+          }
+        })
+      })
+      // Reload frontpage to show new blogs
+      cy.visit('http://localhost:3000')
+      // Open all details
+      cy.get('.show-details').each(element => {
+        element.click()
+      })
+      const likeCounts = []
+      cy.document().then(doc => {
+        doc.querySelectorAll('.like-count').forEach(element => {
+          likeCounts.push(parseInt(element.innerText.split(' ')[1]))
+        })
+        // Copy the original likes
+        const unsorted = likeCounts.slice()
+        // Sort the counts in descending order
+        likeCounts.sort((a, b) => b - a)
+        // Assert that the original array is equal to the sorted array
+        cy.expect(unsorted).to.deep.equal(likeCounts)
+      })
     })
   })
 })

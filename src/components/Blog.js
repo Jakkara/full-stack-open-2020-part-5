@@ -11,7 +11,7 @@ const Blog = ({ blog, likeHandler, deleteHandler }) => {
   return (<div style={style} className='blog-entry'>
     <p>
       {blog.title} {blog.author}
-      <button onClick={() => setDetailsVisible(!detailsVisible)}>
+      <button className="show-details" onClick={() => setDetailsVisible(!detailsVisible)}>
         {detailsVisible ? 'Hide' : 'Show'}
       </button>
     </p>
@@ -20,10 +20,10 @@ const Blog = ({ blog, likeHandler, deleteHandler }) => {
         <p>
           {blog.url}
         </p>
-        <p>
+        <p className="like-count">
           Likes: {blog.likes}
-          <button className="blog-like" onClick={likeHandler}>Like</button>
         </p>
+        <button className="blog-like" onClick={likeHandler}>Like</button>
         {blog.user && blog.user.name && (
           <p>
             {blog.user.name}
